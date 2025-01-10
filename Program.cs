@@ -9,23 +9,38 @@
         }
 
         string longestPalindrome = "";
+        string tempPalindrome = "";
         int stringLength = s.Length;
+        int indexTracker = 0;
 
-        while (stringLength > 2)
+        while (indexTracker < s.Length / 2)
         {
-            for (int i = 0; i < stringLength / 2; i++)
+            while (stringLength > 2)
             {
-                if (s[i] != s[stringLength - i - 1])
+                for (int i = indexTracker; i < stringLength / 2; i++)
                 {
-                    break;
+                    if (s[i] != s[stringLength - i - 1])
+                    {
+                        break;
+                    }
+
+                    tempPalindrome = s.Substring(i, stringLength - i);
+
+                    if (tempPalindrome.Length > longestPalindrome.Length)
+                    {
+                        longestPalindrome = tempPalindrome;
+                    }
+
                 }
-                return s;
+                stringLength-= 1;
             }
-            stringLength -= 1;
+            stringLength = s.Length;
+            indexTracker+= 1;
         }
 
 
-        return "laval";
+
+        return longestPalindrome;
     }
 
     static void Main(string[] args)
@@ -33,13 +48,16 @@
         Solution s = new Solution();
 
         string input1 = "babad";
-        Console.WriteLine("bab = " + s.LongestPalindrome(input1));
+        Console.WriteLine("babad -> bab = " + s.LongestPalindrome(input1));
 
         string input2 = "cbbd";
-        Console.WriteLine("bb = " + s.LongestPalindrome(input2));
+        Console.WriteLine("cbbd -> bb = " + s.LongestPalindrome(input2));
 
-        string input3 = "hhhhhhhhhhhhhhhhhhh";
+        string input3 = "hhh";
         Console.WriteLine("bb = " + s.LongestPalindrome(input3));
+
+        string input4 = "laval";
+        Console.WriteLine("laval -> laval = " + s.LongestPalindrome(input4));
     }
 }
 
