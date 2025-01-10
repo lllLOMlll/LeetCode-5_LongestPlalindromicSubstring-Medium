@@ -1,44 +1,46 @@
 ﻿public class Solution
 {
-    public string LongestPalindrome(string s)
+   public string LongestPalindrome(string s)
     {
-        // Empty string
         if (s.Length == 0)
         {
             return "";
         }
 
         string longestPalindrome = "";
-        string tempPalindrome = "";
         int stringLength = s.Length;
         int indexTracker = 0;
 
-        while (indexTracker < s.Length / 2)
+        while (indexTracker < s.Length)
         {
-            while (stringLength > 2)
+            while (stringLength > indexTracker)
             {
-                for (int i = indexTracker; i < stringLength / 2; i++)
+                bool isPalindrome = true;
+
+                for (int i = 0; i < (stringLength - indexTracker) / 2; i++)
                 {
-                    if (s[i] != s[stringLength - i - 1])
+                    if (s[indexTracker + i] != s[stringLength - i - 1])
                     {
+                        isPalindrome = false;
                         break;
                     }
+                }
 
-                    tempPalindrome = s.Substring(i, stringLength - i);
-
+                if (isPalindrome)
+                {
+                    string tempPalindrome = s.Substring(indexTracker, stringLength - indexTracker);
                     if (tempPalindrome.Length > longestPalindrome.Length)
                     {
                         longestPalindrome = tempPalindrome;
                     }
-
                 }
-                stringLength-= 1;
+                
+                stringLength--; 
             }
-            stringLength = s.Length;
-            indexTracker+= 1;
+
+            stringLength = s.Length; 
+            indexTracker++; 
         }
-
-
 
         return longestPalindrome;
     }
